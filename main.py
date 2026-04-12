@@ -3,27 +3,16 @@ from datetime import datetime, timedelta
 import tkinter as tk
 from tkinter import ttk, messagebox
 
-
 class RendszerHiba(Exception):
     pass
-
-
 class ValidaciosHiba(RendszerHiba):
     pass
-
-
 class JaratNemTalalhatoHiba(RendszerHiba):
     pass
-
-
 class JaratNemElerhetoHiba(RendszerHiba):
     pass
-
-
 class FoglalasNemTalalhatoHiba(RendszerHiba):
     pass
-
-
 class Jarat(ABC):
     def __init__(self, jaratszam, celallomas, jegyar, indulas, ferohely):
         self.jaratszam = jaratszam
@@ -323,6 +312,13 @@ def minta_adatok():
 
 class Alkalmazas:
     def __init__(self, root):
+        self.statusz = None
+        self.foglalas_id_entry = None
+        self.foglalasok_tabla = None
+        self.jaratszam_valaszto = None
+        self.utas_entry = None
+        self.jaratok_tabla = None
+        self.idopont_valaszto = None
         self.root = root
         self.tarsasag = minta_adatok()
 
@@ -334,8 +330,7 @@ class Alkalmazas:
         self.frissit()
 
     def felulet_felepit(self):
-        # Itt én két egyszerű táblát használok, hogy bal oldalon a járatokat,
-        # jobb oldalon pedig a foglalásokat lehessen kényelmesen átlátni.
+        # Itt  két egyszerű táblát használok, hogy bal oldalon a járatokat, jobb oldalon pedig a foglalásokat lehessen kényelmesen átlátni.
         cim = tk.Label(
             self.root,
             text=f"{self.tarsasag.nev} - egyszerű jegyfoglaló rendszer",
@@ -465,7 +460,7 @@ class Alkalmazas:
         # hogy ne kelljen a foglalás idejét kézzel beírni.
         jarat = self.tarsasag.jarat_keres(jaratszam)
         most = datetime.now().replace(second=0, microsecond=0)
-        kezdes = most + timedelta(minutes=30)
+        kezdes: datetime = most + timedelta(minutes=30)
         vege = jarat.indulas - timedelta(minutes=30)
 
         if kezdes >= vege:
@@ -509,7 +504,7 @@ class Alkalmazas:
             self.idopont_valaszto["values"] = []
             self.idopont_valaszto.set("")
 
-    def jarat_valasztva(self, event=None):
+    def jarat_valasztva(self):
         self.idopont_valaszto_frissit()
 
     def frissit(self):
@@ -591,7 +586,7 @@ class Alkalmazas:
         self.idopont_valaszto.set("")
         self.idopont_valaszto["values"] = []
 
-    def jarat_kattintas(self, event=None):
+    def jarat_kattintas(self):
         kijelolt = self.jaratok_tabla.selection()
         if not kijelolt:
             return
@@ -600,7 +595,7 @@ class Alkalmazas:
         self.idopont_valaszto_frissit()
         self.statusz.set(f"Kiválasztott járat: {ertekek[1]} - {ertekek[2]}")
 
-    def foglalas_kattintas(self, event=None):
+    def foglalas_kattintas(self):
         kijelolt = self.foglalasok_tabla.selection()
         if not kijelolt:
             return
