@@ -22,7 +22,7 @@ grafikus felülettel.
 
 A rendszer induláskor automatikusan tartalmaz:
 - 1 légitársaságot
-- 3 járatot
+- 8 járatot
 - 6 foglalást
 
 ## Futtatás
