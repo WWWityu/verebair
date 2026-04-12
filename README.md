@@ -1,7 +1,6 @@
-# VerebAir R8Q3N0 - egyszerű légitársasági jegyfoglaló rendszer
+# VerebAir R8Q3N0 - Verebes Viktor egyszerű légitársasági jegyfoglaló rendszere
 
-Ez a projekt egy szándékosan leegyszerűsített, könnyen követhető Python megoldás
-grafikus felülettel.
+Ez a projekt egy leegyszerűsített, könnyen követhető Python megoldás grafikus felülettel.
 
 ## Mit tud a program?
 
