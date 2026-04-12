@@ -3,26 +3,20 @@ from datetime import datetime, timedelta
 import tkinter as tk
 from tkinter import ttk, messagebox
 
-
 class RendszerHiba(Exception):
     pass
-
 
 class ValidaciosHiba(RendszerHiba):
     pass
 
-
-class JaratNJaradalhatoHiba(RendszerHiba):
+class JaratNemTalalhatoHiba(RendszerHiba):
     pass
-
 
 class JaratNemElerhetoHiba(RendszerHiba):
     pass
 
-
 class FoglalasNemTalalhatoHiba(RendszerHiba):
     pass
-
 
 class Jarat(ABC):
     def __init__(self, jaratszam, celallomas, jegyar, indulas, ferohely):
@@ -216,7 +210,7 @@ class LegiTarsasag:
         for jarat in self._jaratok:
             if jarat.jaratszam == keresett:
                 return jarat
-        raise JaratNJaradalhatoHiba("Nem találom a megadott járatot.")
+        raise JaratNemTalalhatoHiba("Nem találom a megadott járatot.")
 
     def szabad_helyek(self, jaratszam):
         jarat = self.jarat_keres(jaratszam)
@@ -292,8 +286,7 @@ class LegiTarsasag:
 
 
 def minta_adatok():
-    # Itt én előre betöltöm a légitársaságot, a járatokat és a foglalásokat,
-    # hogy a program indulás után rögtön használható legyen.
+    # előre betöltöm a légitársaságot, a járatokat és a foglalásokat, hogy a program indulás után rögtön használható legyen.
     tarsasag = LegiTarsasag("VerebAir R8Q3N0")
     most = datetime.now().replace(second=0, microsecond=0)
 
@@ -323,13 +316,6 @@ def minta_adatok():
 
 class Alkalmazas:
     def __init__(self, root):
-        self.statusz = None
-        self.foglalas_id_entry = None
-        self.foglalasok_tabla = None
-        self.idopont_valaszto = None
-        self.jaratszam_valaszto = None
-        self.utas_entry = None
-        self.jaratok_tabla = None
         self.root = root
         self.tarsasag = minta_adatok()
 
@@ -341,8 +327,7 @@ class Alkalmazas:
         self.frissit()
 
     def felulet_felepit(self):
-        # Itt én két egyszerű táblát használok, hogy bal oldalon a járatokat,
-        # jobb oldalon pedig a foglalásokat lehessen kényelmesen átlátni.
+        # két egyszerű táblát használok, hogy bal oldalon a járatokat, jobb oldalon pedig a foglalásokat lehessen kényelmesen átlátni.
         cim = tk.Label(
             self.root,
             text=f"{self.tarsasag.nev} - egyszerű jegyfoglaló rendszer",
@@ -463,13 +448,12 @@ class Alkalmazas:
         self.jaratszam_valaszto.bind("<<ComboboxSelected>>", self.jarat_valasztva)
 
     def jarat_lista_frissit(self):
-        # Itt én feltöltöm a választható járatlistát, hogy semmit ne kelljen kézzel beírni.
+        # feltöltöm a választható járatlistát, hogy semmit ne kelljen kézzel beírni.
         jaratszamok = [jarat.jaratszam for jarat in self.tarsasag.jaratok]
         self.jaratszam_valaszto["values"] = jaratszamok
 
     def foglalasi_idopontok(self, jaratszam):
-        # Itt én előre legenerálok néhány választható időpontot a kiválasztott járathoz,
-        # hogy ne kelljen a foglalás idejét kézzel beírni.
+        # előre legenerálok néhány választható időpontot a kiválasztott járathoz, hogy ne kelljen a foglalás idejét kézzel beírni.
         jarat = self.tarsasag.jarat_keres(jaratszam)
         most = datetime.now().replace(second=0, microsecond=0)
         kezdes = most + timedelta(minutes=30)
@@ -516,12 +500,11 @@ class Alkalmazas:
             self.idopont_valaszto["values"] = []
             self.idopont_valaszto.set("")
 
-    def jarat_valasztva(self):
+    def jarat_valasztva(self, event=None):
         self.idopont_valaszto_frissit()
 
     def frissit(self):
-        # Itt én mindig újratöltöm a táblákat, hogy a képernyő biztosan
-        # a legfrissebb adatokat mutassa foglalás vagy lemondás után.
+        # újratöltöm a táblákat, hogy a képernyő biztosan a legfrissebb adatokat mutassa foglalás vagy lemondás után.
         self.jarat_lista_frissit()
 
         for sor in self.jaratok_tabla.get_children():
@@ -598,7 +581,7 @@ class Alkalmazas:
         self.idopont_valaszto.set("")
         self.idopont_valaszto["values"] = []
 
-    def jarat_kattintas(self):
+    def jarat_kattintas(self, event=None):
         kijelolt = self.jaratok_tabla.selection()
         if not kijelolt:
             return
@@ -607,7 +590,7 @@ class Alkalmazas:
         self.idopont_valaszto_frissit()
         self.statusz.set(f"Kiválasztott járat: {ertekek[1]} - {ertekek[2]}")
 
-    def foglalas_kattintas(self):
+    def foglalas_kattintas(self, event=None):
         kijelolt = self.foglalasok_tabla.selection()
         if not kijelolt:
             return
@@ -618,7 +601,7 @@ class Alkalmazas:
 
 
 def main():
-    # Itt én egyszerűen csak elindítom az ablakos felületet.
+    # indítom az ablakos felületet.
     root = tk.Tk()
     try:
         ttk.Style().theme_use("clam")
