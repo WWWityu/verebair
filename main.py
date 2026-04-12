@@ -327,8 +327,8 @@ class Alkalmazas:
         self.tarsasag = minta_adatok()
 
         self.root.title("Légitársasági jegyfoglaló rendszer")
-        self.root.geometry("1450x860")
-        self.root.minsize(1280, 760)
+        self.root.geometry("1750x980")
+        self.root.minsize(1500, 900)
 
         self.felulet_felepit()
         self.frissit()

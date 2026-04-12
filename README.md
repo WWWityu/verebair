@@ -1,6 +1,6 @@
 # VerebAir R8Q3N0 - egyszerű légitársasági jegyfoglaló rendszer
 
-Ez a projekt egy leegyszerűsített, könnyen követhető Python megoldás
+Ez a projekt egy szándékosan leegyszerűsített, könnyen követhető Python megoldás
 grafikus felülettel.
 
 ## Mit tud a program?
@@ -22,7 +22,7 @@ grafikus felülettel.
 
 A rendszer induláskor automatikusan tartalmaz:
 - 1 légitársaságot
-- 8 járatot
+- 3 járatot
 - 6 foglalást
 
 ## Futtatás
