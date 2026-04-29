@@ -601,7 +601,7 @@ class Alkalmazas:
 
 
 def main():
-    # indítom az ablakos felületet.
+    # indul az ablakos felületet.
     root = tk.Tk()
     try:
         ttk.Style().theme_use("clam")
