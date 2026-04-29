@@ -11,11 +11,11 @@ Ez a projekt egy leegyszerűsített, könnyen követhető Python megoldás grafi
 
 ## Fő osztályok
 
-- `Jarat` (absztrakt osztály)
-- `BelfoldiJarat`
-- `NemzetkoziJarat`
-- `LegiTarsasag`
-- `JegyFoglalas`
+- Jarat (absztrakt osztály)
+- BelfoldiJarat
+- NemzetkoziJarat
+- LegiTarsasag
+- JegyFoglalas
 
 ## Előkészített indulás
 
